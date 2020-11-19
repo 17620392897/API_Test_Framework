@@ -21,3 +21,34 @@ for i in range(0,9):
         cell_value = get_cell_merged_value(i,j)
         print(cell_value,end=' ')  # 换行处理
     print()
+
+#  把excel转换成[{},{},{}...]
+#  步骤一：
+# excel_list_data = []
+# row_head = sheet.row_values(0)  # 字典的key
+# row_dict = {}
+# row_dict[row_head[0]] = get_cell_merged_value(1,0)
+# row_dict[row_head[1]] = get_cell_merged_value(2,0)
+# row_dict[row_head[2]] = get_cell_merged_value(3,0)
+# row_dict[row_head[3]] = get_cell_merged_value(4,0)
+# print(row_dict)
+
+#  步骤二：改为循环取一行
+# excel_list_data = []
+# row_head = sheet.row_values(0)  # 字典的key
+# row_dict = {}
+# for i in range(sheet.ncols):
+#     row_dict[row_head[i]] = get_cell_merged_value(1,i)
+# print(row_dict)
+
+#  步骤三：
+excel_list_data = []
+row_head = sheet.row_values(0)  # 字典的key
+for row_num in range(1,sheet.nrows):
+    row_dict = {}
+    for col_num in range(sheet.ncols):
+        row_dict[row_head[col_num]] = get_cell_merged_value(row_num,col_num)
+    excel_list_data.append(row_dict)
+print(excel_list_data)
+# for data in excel_list_data:
+#     print(data)
