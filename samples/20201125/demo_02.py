@@ -13,9 +13,9 @@ print(str1)
 #  需要达到的效果:{"access_token":"ASDCCFE"}  考虑：多个变量怎么办？ 不需要替换的情况怎么办？
 str2 = '{"name":${n},"age":${a}}'
 dict2 = {'n': 'xiaoming','a':10}
-variables_list = re.findall('\\${\w+}',str2)
-print(variables_list)
-for v in variables_list:
+variables_list1 = re.findall('\\${\w+}',str2)
+print(variables_list1)
+for v in variables_list1:
     str2 = str2.replace(v,'"%s"'%dict2[v[2:-1]])
 print(str2)
 
