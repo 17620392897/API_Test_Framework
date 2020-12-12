@@ -22,7 +22,8 @@ class CheckUtils:
             'response_headers': self.response_data.headers,
             'responser_body': self.response_data.text,
             'response_url':self.response_data.url,
-            'check_result':True
+            'message':'',
+            'check_result':False
         }
         self.fail_result = {
             'code': 1,

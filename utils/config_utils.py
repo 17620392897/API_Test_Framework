@@ -13,8 +13,13 @@ class ConfigUtils:
     def HOSTS(self):
         hosts_valve = self.cfg.get('default','hosts')
         return hosts_valve
+    @property
+    def REPORT_PATH(self):
+        repost_path_value = self.cfg.get('path','REPORT_PATH')
+        return repost_path_value
 
 local_config = ConfigUtils()
 
 if __name__ =='__main__':
     print(local_config.HOSTS)
+    print(local_config.REPORT_PATH)
