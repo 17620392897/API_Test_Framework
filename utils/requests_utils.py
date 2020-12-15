@@ -6,6 +6,10 @@ import re
 from utils.config_utils import local_config
 from utils.check_utils import CheckUtils
 from requests.exceptions import RequestException,ProxyError,ConnectionError
+from nb_log import LogManager
+
+
+logger = LogManager('API_Test').get_logger_and_add_handlers(is_add_stream_handler=True,log_filename='api_test.log')
 
 class RequestsUtils:
     def __init__(self):
@@ -33,15 +37,19 @@ class RequestsUtils:
         except ProxyError as e:
             result = {'code':3,'message':'调用接口[%s]时发生代理异常,异常原因:%s'%(requests_info['接口名称'],e.__str__()),
                       'check_result':False}
+            logger.error('调用接口[%s]时发生代理异常,异常原因:%s'%(requests_info['接口名称'],e.__str__()))
         except ConnectionError as e:
             result = {'code': 3, 'message': '调用接口[%s]时发生连接异常,异常原因:%s' % (requests_info['接口名称'], e.__str__()),
                       'check_result': False}
+            logger.error( '调用接口[%s]时发生连接异常,异常原因:%s' % (requests_info['接口名称'], e.__str__()))
         except RequestException as e:
             result = {'code': 3, 'message': '调用接口[%s]时发生请求异常,异常原因:%s' % (requests_info['接口名称'], e.__str__()),
                       'check_result': False}
+            logger.error('调用接口[%s]时发生请求异常,异常原因:%s' % (requests_info['接口名称'], e.__str__()))
         except Exception as e:
             result = {'code': 3, 'message': '调用接口[%s]时发生异常,异常原因:%s' % (requests_info['接口名称'], e.__str__()),
                       'check_result': False}
+            logger.error('调用接口[%s]时发生异常,异常原因:%s' % (requests_info['接口名称'], e.__str__()))
         return  result
 
     def __post(self,requests_info):
@@ -71,26 +79,33 @@ class RequestsUtils:
         except ProxyError as e:
             result = {'code':3,'message':'调用接口[%s]时发生代理异常,异常原因:%s'%(requests_info['接口名称'],e.__str__()),
                       'check_result':False}
+            logger.error('调用接口[%s]时发生代理异常,异常原因:%s'%(requests_info['接口名称'],e.__str__()))
         except ConnectionError as e:
             result = {'code': 3, 'message': '调用接口[%s]时发生连接异常,异常原因:%s' % (requests_info['接口名称'], e.__str__()),
                       'check_result': False}
+            logger.error('调用接口[%s]时发生连接异常,异常原因:%s' % (requests_info['接口名称'], e.__str__()))
         except RequestException as e:
             result = {'code': 3, 'message': '调用接口[%s]时发生请求异常,异常原因:%s' % (requests_info['接口名称'], e.__str__()),
                       'check_result': False}
+            logger.error('调用接口[%s]时发生请求异常,异常原因:%s' % (requests_info['接口名称'], e.__str__()))
         except Exception as e:
             result = {'code': 3, 'message': '调用接口[%s]时发生异常,异常原因:%s' % (requests_info['接口名称'], e.__str__()),
                       'check_result': False}
+            logger.error('调用接口[%s]时发生异常,异常原因:%s' % (requests_info['接口名称'], e.__str__()))
         return result
 
     def request(self,step_info):
         request_type = step_info['请求方式']
+        logger.info('%开始调用'%step_info['接口名称'])
         if request_type == "get":
             result = self.__get(step_info)
         elif request_type == "post":
             result = self.__post(step_info)
         else:
             result = {'code':2,'message':'请求方式不支持','check_result':False}
+            logger.error('%调用时，%s'%(step_info['接口名称'],result['message']))
         # print(self.tmp_variables)
+        logger.info('%调用结束'%step_info['接口名称'])
         return result
 
     def request_by_step(self,test_steps):
