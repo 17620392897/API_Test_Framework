@@ -7,9 +7,10 @@ from utils.config_utils import local_config
 from utils.check_utils import CheckUtils
 from requests.exceptions import RequestException,ProxyError,ConnectionError
 from nb_log import LogManager
+from utils.config_utils import local_config
 
 
-logger = LogManager('API_Test').get_logger_and_add_handlers(is_add_stream_handler=True,log_filename='api_test.log')
+logger = LogManager('API_Test').get_logger_and_add_handlers(is_add_stream_handler=True,log_filename=local_config.LOG_NAME)
 
 class RequestsUtils:
     def __init__(self):

@@ -27,3 +27,7 @@ request_by_step --》request --》 __get/__post
 20201212:
 1、补充断言类型
 2、paramunittest参数化处理、参数化应用，测试报告产出，控制用例执行、异常报错处理，完成整体框架封装
+
+20201215:
+1、调整了check_utils.py中的run_check()方法
+2、引入nb_log模块
